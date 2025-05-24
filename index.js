@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser()); // ✅ REQUIRED for res.cookie to work properly
 
 app.use('/auth', adminRouter);
+app.use('/Images', express.static('public/images'));
 
 app.listen(3000, () => {
   console.log("server is running");

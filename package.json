@@ -2,11 +2,33 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.10",
+    "path": "^0.12.7",
+    "sql": "^0.78.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddd01/ems-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/siddd01/ems-server/issues"
+  },
+  "homepage": "https://github.com/siddd01/ems-server#readme",
   "description": ""
 }

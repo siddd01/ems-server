@@ -127,6 +127,14 @@ router.get('/employee/:id',(req,res)=>{
         }
     })
 })
+router.delete('/employee/:id',(req,res)=>{
+    const sql = "DELETE  FROM employee WHERE id = ?"
+    const id=req.params.id
+    con.query(sql, [id],(err,result)=>{
+        if(err) return res.json({Status:false,Error:"Query error"})
+        return res.json({Status:true,Message:"Selected Id Deleted"})
+    })
+})
 
 router.put('/employee/:id', upload.single("image"),(req,res)=>{
     const {name,email,password,address,salary,category_id}=req.body
@@ -154,6 +162,8 @@ router.put('/employee/:id', upload.single("image"),(req,res)=>{
   })
     
 })
+
+
 
 export { router as adminRouter };
 

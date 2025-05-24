@@ -37,6 +37,39 @@ router.post('/adminLogin', (req, res) => {
     }
   });
 });
+// TEMP: Test route
+router.get('/test', (req, res) => {
+  res.send("✅ Test route works!");
+});
+
+
+router.get('/category', (req,res)=> {
+    const sql = "SELECT * FROM category"
+    con.query(sql,(err,result)=>{
+        if(err){
+            console.log("db err",err)
+            return res.json({Status:false , Error:"Query error"})
+        }
+        return res.json({Status:true, Result:result })
+    })
+})
+
+
+
+router.post('/add_category', (req, res) => {
+  console.log("✅ /auth/add_category route hit");
+  const sql = "INSERT INTO category (`name`) VALUES (?)";
+
+  // Replace this with actual DB connection
+  con.query(sql, [req.body.category], (err, result) => {
+    if (err) {
+      console.error("❌ Database error:", err);
+      return res.json({ Status: false, Error: "Query Error" });
+    }
+    res.json({ Status: true, message: "Category added successfully!" });
+  });
+});
+
 
 
 export { router as adminRouter };

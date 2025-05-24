@@ -114,5 +114,46 @@ router.post('/add_employee',upload.single('image'), (req, res) => {
   });
 });
 
+
+router.get('/employee/:id',(req,res)=>{
+    const sql = "SELECT * FROM employee WHERE id = ?"
+    con.query(sql, [req.params.id],(err,result)=>{
+        if(err) return result.json({Status:false,Error:"Query Error"})
+        if(result.length > 0){
+            res.json({Status:true,Result:result[0]})
+        }
+        else{
+            res.json({Status:false,Error:"Employee not found"})
+        }
+    })
+})
+
+router.put('/employee/:id', upload.single("image"),(req,res)=>{
+    const {name,email,password,address,salary,category_id}=req.body
+    const {id}=req.params
+      let sql = `
+    UPDATE employee SET 
+      name = ?, 
+      email = ?, 
+      password = ?, 
+      address = ?, 
+      salary = ?, 
+      category_id = ?
+  `;
+  const values = [name, email, password, address, salary, category_id];
+  if(req.file){
+    sql += `, image = ?`
+    values.push(req.file.filename)
+  }
+  sql+= `WHERE id =? `
+  values.push(id)
+
+  con.query(sql, values , (err,result)=>{
+    if(err) return res.json({Status:false,Error:"Query Error"})
+    return res.json({Status:true,Result:"Employee updated Successfully"})
+  })
+    
+})
+
 export { router as adminRouter };
 

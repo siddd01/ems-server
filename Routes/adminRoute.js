@@ -9,6 +9,8 @@ import con from '../utils/db.js';
 
 
 const router = express.Router()
+
+
 router.post('/adminLogin', (req, res) => {
  const sql = 'SELECT * FROM admin WHERE email = ? AND password = ?';
 
@@ -161,6 +163,26 @@ router.put('/employee/:id', upload.single("image"),(req,res)=>{
     return res.json({Status:true,Result:"Employee updated Successfully"})
   })
     
+})
+
+router.get('/logout',(req,res)=>{
+    res.clearCookie('token')
+    return res.json({Status:true})
+})
+
+router.get("/admin_Count",(req,res)=>{
+    const sql = "SELECT count(id) as admin from admin" ;
+    con.query(sql,(err,result)=>{
+        if(err) return res.json({Status:false , Error:"Query Error"})
+         return res.json({Status:true , Result:result})
+        })
+})
+router.get("/admin_records",(req,res)=>{
+    const sql = "SELECT * from admin" ;
+    con.query(sql,(err,result)=>{
+        if(err) return res.json({Status:false , Error:"Query Error"})
+         return res.json({Status:true , Result:result})
+        })
 })
 
 
